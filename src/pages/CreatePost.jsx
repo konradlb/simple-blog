@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "../firebase-config";
+import { addDoc } from "firebase/firestore";
+import { postsCollectionRef } from "../firebase-config";
 import { useNavigate } from "react-router-dom";
 
 function CreatePost() {
@@ -9,8 +9,6 @@ function CreatePost() {
   const [postImageUrl, setPostImageUrl] = useState("");
   const [postText, setPostText] = useState("");
   const [postSlug, setPostSlug] = useState("");
-
-  const postsCollectionRef = collection(db, "posts");
 
   let navigate = useNavigate();
 
