@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-import { addDoc } from "firebase/firestore";
-import { postsCollectionRef } from "../firebase-config";
+import { addDoc, serverTimestamp } from "firebase/firestore";
+import { postsCollectionRef } from "../firebase/firebase-config";
 import { useNavigate } from "react-router-dom";
 
 function CreatePost() {
@@ -18,6 +18,7 @@ function CreatePost() {
       postImageUrl: postImageUrl,
       postText: postText,
       postSlug: postSlug,
+      timestamp: serverTimestamp(),
     });
     navigate("/");
   };
