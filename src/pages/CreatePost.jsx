@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { addDoc, serverTimestamp } from "firebase/firestore";
-import { postsCollectionRef } from "../firebase/firebase-config";
+import { postsRef } from "../firebase/firebase-config";
 import { useNavigate } from "react-router-dom";
 
 function CreatePost() {
@@ -13,7 +13,7 @@ function CreatePost() {
   let navigate = useNavigate();
 
   const createPost = async () => {
-    await addDoc(postsCollectionRef, {
+    await addDoc(postsRef, {
       title: title,
       postImageUrl: postImageUrl,
       postText: postText,

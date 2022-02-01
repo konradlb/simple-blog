@@ -4,7 +4,7 @@ import {
   collection,
   orderBy,
   query,
-  getDocs,
+  onSnapshot,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -16,17 +16,21 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_appId,
 };
 
-const app = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 
-export const db = getFirestore(app);
+const db = getFirestore();
 
-export const postsCollectionRef = collection(db, "posts");
+export const postsRef = collection(db, "posts");
+
+const q = query(postsRef, orderBy("timestamp", "desc"));
 
 export const getPosts = async (set) => {
-  const data = await getDocs(
-    postsCollectionRef
-    // orderBy("timestamp", "desc")
-  );
-  console.log("getPosts");
-  set(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  onSnapshot(q, (snapshot) => {
+    let posts = [];
+    snapshot.docs.forEach((post) => {
+      posts.push({ ...post.data(), id: post.id });
+    });
+
+    set(posts);
+  });
 };
