@@ -14,7 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/create-post" element={<CreatePost />} />
-        <Route path="/view-post" element={<ViewPost />} />
+        <Route path="/view-post/:slug" element={<ViewPost />} />
       </Routes>
       <Footer />
     </Router>

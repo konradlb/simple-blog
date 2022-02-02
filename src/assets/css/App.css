@@ -157,12 +157,22 @@ textarea {
 
 .post .postHeader {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   width: 100%;
 }
 
 .postHeader .title {
   flex: 50%;
+  margin: 0;
+}
+.postHeader .title h1 {
+  margin: 0;
+}
+.postHeader .title a {
+  color: black;
+}
+.postHeader .image {
+  align-self: center;
 }
 .postHeader .deletePost {
   flex: 50%;
@@ -186,4 +196,5 @@ textarea {
   width: 100%;
   overflow: hidden;
   overflow-y: auto;
+  margin-top: 20px;
 }

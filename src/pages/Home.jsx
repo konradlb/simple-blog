@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 import { getPosts } from "../firebase/firebase-config";
 import { getDate } from "./../utils/getDate";
+
 function Home() {
   const [postsList, setPostsList] = useState([]);
 
@@ -9,7 +11,7 @@ function Home() {
     getPosts(setPostsList);
   }, []);
 
-  if (Object.keys(postsList).length === 0) return "";
+  if (Object.keys(postsList).length === 0) return <h2>Loading</h2>;
   else
     return (
       <div className="homePage">
@@ -18,11 +20,17 @@ function Home() {
             <div key={post.id} className="post">
               <div className="postHeader">
                 <div className="title">
-                  <h1>{post.title}</h1>
-                  <h5>{getDate(post.timestamp)}</h5>
+                  <h1>
+                    <Link to={`/view-post/${post.postSlug}`}>{post.title}</Link>
+                  </h1>
+                </div>
+
+                <h5>{getDate(post.timestamp)}</h5>
+                <div className="image">
                   <img src={post.postImageUrl} alt="Postimage" />
                 </div>
               </div>
+
               <div className="postTextContainer">{post.postText}</div>
             </div>
           );
