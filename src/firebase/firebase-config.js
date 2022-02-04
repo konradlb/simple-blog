@@ -24,13 +24,15 @@ export const postsRef = collection(db, "posts");
 
 const q = query(postsRef, orderBy("timestamp", "desc"));
 
-export const getPosts = async (set) => {
+export const getPosts = async (setPostsList, setLoading) => {
+  setLoading(true);
   onSnapshot(q, (snapshot) => {
     let posts = [];
     snapshot.docs.forEach((post) => {
       posts.push({ ...post.data(), id: post.id });
     });
 
-    set(posts);
+    setPostsList(posts);
+    setLoading(false);
   });
 };

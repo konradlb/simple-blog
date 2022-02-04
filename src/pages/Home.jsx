@@ -6,12 +6,14 @@ import { getDate } from "./../utils/getDate";
 
 function Home() {
   const [postsList, setPostsList] = useState([]);
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-    getPosts(setPostsList);
+    getPosts(setPostsList, setLoading);
   }, []);
 
-  if (postsList.length === 0) return <h2>Loading</h2>;
+  if (isLoading) return <h2>Loading</h2>;
+  if (postsList.length === 0) return <h2>There is no posts</h2>;
   else
     return (
       <div className="homePage">

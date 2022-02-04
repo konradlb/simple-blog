@@ -6,18 +6,20 @@ import { getDate } from "./../utils/getDate";
 
 function ViewPost() {
   const [postsList, setPostsList] = useState([]);
+  const [isLoading, setLoading] = useState(false);
 
   let params = useParams();
 
   useEffect(() => {
-    getPosts(setPostsList);
+    getPosts(setPostsList, setLoading);
   }, []);
 
   const post = postsList.find((post) => {
     return post.postSlug === params.slug;
   });
 
-  if (postsList.length === 0) return <h2>Loading</h2>;
+  if (isLoading) return <h2>Loading</h2>;
+  if (post === undefined) return <h2>There is no such post </h2>;
   else
     return (
       <div className="homePage">
