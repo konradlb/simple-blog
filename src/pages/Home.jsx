@@ -11,7 +11,7 @@ function Home() {
     getPosts(setPostsList);
   }, []);
 
-  if (Object.keys(postsList).length === 0) return <h2>Loading</h2>;
+  if (postsList.length === 0) return <h2>Loading</h2>;
   else
     return (
       <div className="homePage">

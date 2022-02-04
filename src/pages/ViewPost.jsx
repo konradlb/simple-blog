@@ -17,20 +17,22 @@ function ViewPost() {
     return post.postSlug === params.slug;
   });
 
-  if (Object.keys(postsList).length === 0) return <h2>Loading</h2>;
+  if (postsList.length === 0) return <h2>Loading</h2>;
   else
     return (
-      <div key={post.id} className="post">
-        <div className="postHeader">
-          <div className="title">
-            <h1>{post.title}</h1>
-            <h5>{getDate(post.timestamp)}</h5>
-            <img src={post.postImageUrl} alt="Postimage" />
+      <div className="homePage">
+        <div className="post">
+          <div className="postHeader">
+            <div className="title">
+              <h1>{post.title}</h1>
+              <h5>{getDate(post.timestamp)}</h5>
+              <img src={post.postImageUrl} alt="Postimage" />
+            </div>
           </div>
-        </div>
-        <div className="postTextContainer">
-          <h1>post slug: {params.slug}</h1>
-          {post.postText}
+          <div className="postTextContainer">
+            <h1>post slug: {params.slug}</h1>
+            {post.postText}
+          </div>
         </div>
       </div>
     );
