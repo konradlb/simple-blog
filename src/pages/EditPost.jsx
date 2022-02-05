@@ -1,37 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-import { addDoc, serverTimestamp } from "firebase/firestore";
-import { postsRef } from "../firebase/firebase-config";
-import { useNavigate } from "react-router-dom";
+import { getPosts, updatePost } from "../firebase/firebase-config";
 
-function CreatePost() {
+function EditPost() {
   const [title, setTitle] = useState("");
   const [postImageUrl, setPostImageUrl] = useState("");
   const [postText, setPostText] = useState("");
   const [postSlug, setPostSlug] = useState("");
-
+  const [postsList, setPostsList] = useState([]);
   const [isLoading, setLoading] = useState(false);
 
   let navigate = useNavigate();
+  let params = useParams();
 
-  const createPost = async () => {
-    setLoading(true);
-    await addDoc(postsRef, {
+  useEffect(() => {
+    getPosts(setPostsList, setLoading);
+  }, []);
+
+  const post = postsList.find((post) => {
+    return post.postSlug === params.slug;
+  });
+
+  useEffect(() => {
+    if (post !== undefined) {
+      setTitle(post.title);
+      setPostImageUrl(post.postImageUrl);
+      setPostText(post.postText);
+      setPostSlug(post.postSlug);
+    }
+  }, [post]);
+
+  const handleUpdatePost = async () => {
+    const newFields = {
       title: title,
       postImageUrl: postImageUrl,
       postText: postText,
       postSlug: postSlug,
-      timestamp: serverTimestamp(),
-    });
-    setLoading(false);
+    };
+
+    await updatePost(post.id, newFields);
+
     navigate("/");
   };
-
-  return (
-    <div className="createPostPage">
-      {isLoading ? (
-        <h2>Sending post</h2>
-      ) : (
+  if (isLoading) return <h2>Loading</h2>;
+  else
+    return (
+      <div className="createPostPage">
         <div className="cpContainer">
           <h1>Create a post</h1>
           <div className="inputGp">
@@ -41,6 +56,7 @@ function CreatePost() {
               onChange={(event) => {
                 setTitle(event.target.value);
               }}
+              value={title}
             ></input>
           </div>
           <div className="inputGp">
@@ -50,6 +66,7 @@ function CreatePost() {
               onChange={(event) => {
                 setPostImageUrl(event.target.value);
               }}
+              value={postImageUrl}
             ></input>
           </div>
 
@@ -60,6 +77,7 @@ function CreatePost() {
               onChange={(event) => {
                 setPostSlug(event.target.value);
               }}
+              value={postSlug}
             ></input>
           </div>
 
@@ -70,13 +88,13 @@ function CreatePost() {
               onChange={(event) => {
                 setPostText(event.target.value);
               }}
+              value={postText}
             ></textarea>
           </div>
-          <button onClick={createPost}> Submit </button>
+          <button onClick={handleUpdatePost}> Submit </button>
         </div>
-      )}
-    </div>
-  );
+      </div>
+    );
 }
 
-export default CreatePost;
+export default EditPost;
