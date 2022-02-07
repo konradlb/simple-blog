@@ -38,11 +38,11 @@ function EditPost() {
       postText: postText,
       postSlug: postSlug,
     };
-
     await updatePost(post.id, newFields);
 
-    navigate("/");
+    navigate(`/view-post/${postSlug}`);
   };
+
   if (isLoading) return <h2>Loading</h2>;
   else
     return (
