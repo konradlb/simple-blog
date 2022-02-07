@@ -17,7 +17,7 @@ and go inside the directory
 cd simple-blog
 ```
 
-2. Paste your Firebase api keys into .env.template and change it name into .env
+2. Paste your Firebase api keys into .env.template and change filename into .env
 
 ```
 REACT_APP_apiKey= "..."
