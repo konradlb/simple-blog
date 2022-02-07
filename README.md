@@ -1,21 +1,45 @@
 # Silmple React blog with Firebase
 
-## Available Scripts
+Project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-In the project directory, you can run:
+Playground with React.js and Firebase. The goal was to build simple blog and store posts data in Firebase
 
-### `npm start`
+1. Clone this repo by
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```
+git clone https://github.com/konradlb/simple-blog.git
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```
 
-### `npm run build`
+and go inside the directory
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+cd simple-blog
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Paste your Firebase api keys into .env.template and change it name into .env
+
+```
+REACT_APP_apiKey= "..."
+REACT_APP_authDomain= "..."
+REACT_APP_projectId= "..."
+REACT_APP_storageBucket= "..."
+REACT_APP_messagingSenderId= "..."
+REACT_APP_appId= "..."
+```
+
+3. Create collection "posts" in firebase console
+
+4. Install dependencies
+
+```
+npm install
+```
+
+5. Run the app in the development mode
+
+```
+npm start
+```
+
+Application will run on http://localhost:3000. You need to have free port 3000 to run this app.
